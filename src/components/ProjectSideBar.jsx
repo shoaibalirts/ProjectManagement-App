@@ -1,5 +1,10 @@
 import Button from "./Button";
-export default function ProjectSideBar({ onStartAddProject, projects }) {
+export default function ProjectSideBar({
+  onStartAddProject,
+  projects,
+  onSelectProject,
+  selectedProjectId,
+}) {
   // The purpose of ProjectSideBar component:
   //       1) to add prjects and list them in the side bar
   //       2) to switch the project from one another
@@ -15,9 +20,20 @@ export default function ProjectSideBar({ onStartAddProject, projects }) {
       </div>
       <ul className="mt-8">
         {projects.map((project) => {
+          let cssClasses =
+            "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover: bh-stone-800";
+
+          if (project.id === selectedProjectId) {
+            cssClasses += " bg-stone-800 text-stone-200";
+          } else {
+            cssClasses += " text-stone-400";
+          }
           return (
             <li key={project.id}>
-              <button className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400 hover:text-stone-200 hover: bh-stone-800">
+              <button
+                className={cssClasses}
+                onClick={() => onSelectProject(project.id)}
+              >
                 {project.title}
               </button>
             </li>
